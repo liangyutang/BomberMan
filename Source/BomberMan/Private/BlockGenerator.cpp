@@ -21,6 +21,8 @@ void ABlockGenerator::BeginPlay()
 	Super::BeginPlay();
 
 	SpawnUnbreakableBlock();
+
+	FindValidPosition();
 	
 }
 
@@ -43,10 +45,36 @@ void ABlockGenerator::SpawnUnbreakableBlock()
 
 bool ABlockGenerator::AllowedSpawnPosition(FVector Position)
 {
+	if (IgnorePos.Contains(Position))
+	{
+		return false;
+	}
+
+	return true;
 }
 
 void ABlockGenerator::FindValidPosition()
 {
+	if (SpawnPoints.Num()>0)
+	{
+		SpawnPoints.Empty();
+	}
+
+	for (int i = 0; i < Width; i++)
+	{
+		for (int j = 0; j < Height; j++)
+		{
+			if (i % 2 == 0 || j % 2 == 0)
+			{
+				//Éú³ÉÎ»ÖÃ
+				FVector SpawnLocation = FVector(i - 7, j - 7, 0) * Scale;
+				if (AllowedSpawnPosition(SpawnLocation))
+				{
+					SpawnPoints.Add(SpawnLocation);
+				}
+			}
+		}
+	}
 }
 
 // Called every frame
