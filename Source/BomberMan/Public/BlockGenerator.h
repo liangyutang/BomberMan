@@ -20,13 +20,13 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Block Generation")
 	TSubclassOf <class  AUnbreakableBlock > UnbreakableBlock;
 
-	UPROPERTY(EditAnywhere, Category = "Block Generation | Setting")
-	int Length = 15;
+	UPROPERTY(EditAnywhere, Category = "Block Generation|Setting")
+	int Height = 15;
 
-	UPROPERTY(EditAnywhere, Category = "Block Generation | Setting")
+	UPROPERTY(EditAnywhere, Category = "Block Generation|Setting")
 	int Width = 15;
 
-	UPROPERTY(EditAnywhere, Category = "Block Generation | Setting")
+	UPROPERTY(EditAnywhere, Category = "Block Generation|Setting")
 	float Scale = 100.0f;
 protected:
 	// Called when the game starts or when spawne

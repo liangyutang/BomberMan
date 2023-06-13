@@ -3,6 +3,8 @@
 
 #include "BlockGenerator.h"
 
+#include "UnbreakableBlock.h"
+
 // Sets default values
 ABlockGenerator::ABlockGenerator()
 {
@@ -15,11 +17,26 @@ ABlockGenerator::ABlockGenerator()
 void ABlockGenerator::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SpawnUnbreakableBlock();
 	
 }
 
 void ABlockGenerator::SpawnUnbreakableBlock()
 {
+	for (int i=0;i<Width;i++)
+	{
+		for (int j = 0; j < Height; j++)
+		{
+			if (i%2!=0 && j%2!=0)
+			{
+				//Éú³ÉÎ»ÖÃ
+				FVector SpawnLocation = FVector(i-7, j-7, 0) * Scale;
+
+				GetWorld()->SpawnActor<AUnbreakableBlock>(UnbreakableBlock,SpawnLocation,FRotator::ZeroRotator);
+			}
+		}
+	}
 }
 
 // Called every frame
