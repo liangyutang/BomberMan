@@ -4,15 +4,22 @@
 #include "BlockGenerator.h"
 
 #include "UnbreakableBlock.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 // Sets default values
 ABlockGenerator::ABlockGenerator()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = WITH_EDITOR;
 
 	IgnorePos.Add(FVector(700.0f, -700.0f, 0.0f));
+	IgnorePos.Add(FVector(700.0f, -600.0f, 0.0f));
+	IgnorePos.Add(FVector(600.0f, -700.0f, 0.0f));
+
 	IgnorePos.Add(FVector(-700.0f, 700.0f, 0.0f));
+	IgnorePos.Add(FVector(-700.0f, 600.0f, 0.0f));
+	IgnorePos.Add(FVector(-600.0f, 700.0f, 0.0f));
+
 }
 
 // Called when the game starts or when spawned
@@ -23,6 +30,8 @@ void ABlockGenerator::BeginPlay()
 	SpawnUnbreakableBlock();
 
 	FindValidPosition();
+
+	bDrawDebugPoint = false;
 	
 }
 
@@ -77,10 +86,33 @@ void ABlockGenerator::FindValidPosition()
 	}
 }
 
+void ABlockGenerator::DrawDebugPoint(FVector& Center, const FLinearColor& Color)
+{
+	UKismetSystemLibrary::DrawDebugPoint(this, Center, 20.0f, Color);
+}
+
 // Called every frame
 void ABlockGenerator::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+
+	if (bDrawDebugPoint)
+	{
+		for (FVector& SpawnPoint : SpawnPoints)
+		{
+			DrawDebugPoint(SpawnPoint, ValidColor);
+		}
+
+		for (FVector& IgnorePo : IgnorePos)
+		{
+			DrawDebugPoint(IgnorePo, InValidColor);
+		}
+	}
+}
+
+bool ABlockGenerator::ShouldTickIfViewportsOnly() const
+{
+	return WITH_EDITOR;
 }
 

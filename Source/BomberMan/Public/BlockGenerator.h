@@ -39,6 +39,13 @@ protected:
 	//忽略的位置，不产生障碍物，用来生成主角
 	UPROPERTY(EditAnywhere, Category = "Block Generation|Setting")
 	TArray<FVector> IgnorePos;
+
+	const FLinearColor ValidColor = FLinearColor(0, 0, 0.8f);
+
+	const FLinearColor InValidColor = FLinearColor(0.8f, 0, 0);
+
+	UPROPERTY(EditAnywhere, Category = "Block Generation|Debug")
+	bool bDrawDebugPoint = true;
 protected:
 	// Called when the game starts or when spawne
 	virtual void BeginPlay() override;
@@ -47,9 +54,13 @@ protected:
 
 	bool AllowedSpawnPosition(FVector Position);
 
+	UFUNCTION(BlueprintCallable)
 	void FindValidPosition();
+
+	void DrawDebugPoint(FVector& Center, const FLinearColor& Color);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	virtual bool ShouldTickIfViewportsOnly() const override;
 };
