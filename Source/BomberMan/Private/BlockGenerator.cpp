@@ -11,6 +11,8 @@ ABlockGenerator::ABlockGenerator()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	IgnorePos.Add(FVector(700.0f, -700.0f, 0.0f));
+	IgnorePos.Add(FVector(-700.0f, 700.0f, 0.0f));
 }
 
 // Called when the game starts or when spawned
@@ -37,6 +39,14 @@ void ABlockGenerator::SpawnUnbreakableBlock()
 			}
 		}
 	}
+}
+
+bool ABlockGenerator::AllowedSpawnPosition(FVector Position)
+{
+}
+
+void ABlockGenerator::FindValidPosition()
+{
 }
 
 // Called every frame

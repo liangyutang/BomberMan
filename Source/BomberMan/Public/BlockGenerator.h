@@ -31,11 +31,23 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Block Generation|Setting")
 	float Scale = 100.0f;
+
+	//备选的合法位置
+	UPROPERTY(VisibleAnywhere,Category="Block Generation|Setting")
+	TArray<FVector> SpawnPoints;
+
+	//忽略的位置，不产生障碍物，用来生成主角
+	UPROPERTY(EditAnywhere, Category = "Block Generation|Setting")
+	TArray<FVector> IgnorePos;
 protected:
 	// Called when the game starts or when spawne
 	virtual void BeginPlay() override;
 
 	void SpawnUnbreakableBlock();
+
+	bool AllowedSpawnPosition(FVector Position);
+
+	void FindValidPosition();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
