@@ -13,12 +13,6 @@ ABlockGenerator::ABlockGenerator()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = WITH_EDITOR;
 
-	static ConstructorHelpers::FClassFinder<AUnbreakableBlock> UB(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/BP_UnbreakableBlock.BP_UnbreakableBlock'"));
-	UnbreakableBlock = UB.Class;
-
-	static ConstructorHelpers::FClassFinder<ABreakableBlock> BB(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/BP_BreakableBlock.BP_BreakableBlock'"));
-	BreakableBlock = BB.Class;
-
 	IgnorePos.Add(FVector(700.0f, -700.0f, 0.0f));
 	IgnorePos.Add(FVector(700.0f, -600.0f, 0.0f));
 	IgnorePos.Add(FVector(600.0f, -700.0f, 0.0f));
