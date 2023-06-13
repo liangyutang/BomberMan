@@ -45,25 +45,5 @@ void ABomberCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	if (const APlayerController* PlayerController=CastChecked<APlayerController>(GetController()))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem=ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(IMC_Move, 0);
-		}
-	}
-
-	if (UEnhancedInputComponent* EnhancedInputComponent=CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
-	{
-		if (IA_MoveHorizontal)
-		{
-			EnhancedInputComponent->BindAction(IA_MoveHorizontal, ETriggerEvent::Triggered, this, &ABomberCharacter::MoveHorizontal);
-		}
-
-		if (IA_MoveVertical)
-		{
-			EnhancedInputComponent->BindAction(IA_MoveVertical, ETriggerEvent::Triggered, this, &ABomberCharacter::MoveVertical);
-		}
-	}
 }
 

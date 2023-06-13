@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "InputActionValue.h"
+
 #include "BomberCharacter.generated.h"
 
 UCLASS()
@@ -20,10 +20,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void MoveVertical(const FInputActionValue& InputValue);
-
-	void MoveHorizontal(const FInputActionValue& InputValue);
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -34,12 +30,5 @@ public:
 
 private:
 
-	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite,Category="Context",meta=(AllowPrivateAccess="true"))
-	TObjectPtr<class UInputMappingContext> IMC_Move;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Context", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<class UInputAction> IA_MoveVertical;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Context", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<class UInputAction> IA_MoveHorizontal;
 };
