@@ -46,6 +46,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Block Generation|Debug")
 	bool bDrawDebugPoint = true;
+
+	UPROPERTY(EditAnywhere,Category="Block Generation|Setting",meta=(ClampMin = "0.0",ClampMax = "1.0"))
+	float BlockIntensity = 0.7f;
 protected:
 	// Called when the game starts or when spawne
 	virtual void BeginPlay() override;
@@ -58,6 +61,10 @@ protected:
 	void FindValidPosition();
 
 	void DrawDebugPoint(FVector& Center, const FLinearColor& Color);
+
+	void SpawnBreakableBlock();
+
+	int GetValidPositionCount();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

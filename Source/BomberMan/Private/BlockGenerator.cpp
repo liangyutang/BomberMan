@@ -3,6 +3,7 @@
 
 #include "BlockGenerator.h"
 
+#include "BreakableBlock.h"
 #include "UnbreakableBlock.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -11,6 +12,12 @@ ABlockGenerator::ABlockGenerator()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = WITH_EDITOR;
+
+	static ConstructorHelpers::FClassFinder<AUnbreakableBlock> UB(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/BP_UnbreakableBlock.BP_UnbreakableBlock'"));
+	UnbreakableBlock = UB.Class;
+
+	static ConstructorHelpers::FClassFinder<ABreakableBlock> BB(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/BP_BreakableBlock.BP_BreakableBlock'"));
+	BreakableBlock = BB.Class;
 
 	IgnorePos.Add(FVector(700.0f, -700.0f, 0.0f));
 	IgnorePos.Add(FVector(700.0f, -600.0f, 0.0f));
@@ -30,6 +37,8 @@ void ABlockGenerator::BeginPlay()
 	SpawnUnbreakableBlock();
 
 	FindValidPosition();
+
+	SpawnBreakableBlock();
 
 	bDrawDebugPoint = false;
 	
@@ -89,6 +98,29 @@ void ABlockGenerator::FindValidPosition()
 void ABlockGenerator::DrawDebugPoint(FVector& Center, const FLinearColor& Color)
 {
 	UKismetSystemLibrary::DrawDebugPoint(this, Center, 20.0f, Color);
+}
+
+void ABlockGenerator::SpawnBreakableBlock()
+{
+	if (BreakableBlock)
+	{
+		const int BlockToSpawn = GetValidPositionCount()*BlockIntensity;
+		TArray<FVector> TempPoints;
+		TempPoints.Append(SpawnPoints);
+
+		for (int i=0;i<BlockToSpawn;i++)
+		{
+			const int Index = FMath::RandRange(0, TempPoints.Num() - 1);
+			GetWorld()->SpawnActor<ABreakableBlock>(BreakableBlock, TempPoints[Index], FRotator::ZeroRotator);
+			TempPoints.RemoveAt(Index);
+		}
+
+	}
+}
+
+int ABlockGenerator::GetValidPositionCount()
+{
+	return SpawnPoints.Num();
 }
 
 // Called every frame
