@@ -20,6 +20,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Block Generation")
 	TSubclassOf <class  AUnbreakableBlock > UnbreakableBlock;
 
+	UPROPERTY(EditAnywhere, Category = "Block Generation")
+	TSubclassOf <class  ABreakableBlock > BreakableBlock;
+
 	UPROPERTY(EditAnywhere, Category = "Block Generation|Setting")
 	int Height = 15;
 
