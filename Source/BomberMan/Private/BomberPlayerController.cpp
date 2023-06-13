@@ -2,8 +2,6 @@
 
 
 #include "BomberPlayerController.h"
-
-#include "BomberCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
@@ -12,16 +10,21 @@ void ABomberPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	if (const APlayerController* PlayerController = CastChecked<APlayerController>(this))
+	const int32 Id= GetLocalPlayer()->GetControllerId();
+	
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (Id == 0)
 		{
-			Subsystem->AddMappingContext(IMC_Move, 0);
-			Subsystem->AddMappingContext(IMC_Move2, 1);
+			Subsystem->AddMappingContext(IMC_Move, Id);
+		}
+		if (Id == 1)
+		{
+			Subsystem->AddMappingContext(IMC_Move2, Id);
 		}
 	}
 
-	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(this))
+	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
 	{
 		if (IA_MoveHorizontal)
 		{
@@ -33,12 +36,13 @@ void ABomberPlayerController::SetupInputComponent()
 			EnhancedInputComponent->BindAction(IA_MoveVertical, ETriggerEvent::Triggered, this, &ABomberPlayerController::MoveVertical);
 		}
 	}
+	
 }
 
 void ABomberPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	Pawn = GetPawn();
+	NowPawn = GetPawn();
 }
 
 
@@ -46,9 +50,9 @@ void ABomberPlayerController::MoveVertical(const FInputActionValue& InputValue)
 {
 	const float Value = InputValue.GetMagnitude();
 	
-	if (Pawn)
+	if (NowPawn)
 	{
-		Pawn->AddMovementInput(FVector::RightVector, Value);
+		NowPawn->AddMovementInput(FVector::RightVector, Value);
 	}
 }
 
@@ -56,8 +60,8 @@ void ABomberPlayerController::MoveHorizontal(const FInputActionValue& InputValue
 {
 	const float Value = InputValue.GetMagnitude();
 
-	if (Pawn)
+	if (NowPawn)
 	{
-		Pawn->AddMovementInput(FVector::ForwardVector, Value);
+		NowPawn->AddMovementInput(FVector::ForwardVector, Value);
 	}
 }

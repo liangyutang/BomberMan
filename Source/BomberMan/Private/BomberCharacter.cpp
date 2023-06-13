@@ -21,17 +21,6 @@ void ABomberCharacter::BeginPlay()
 	
 }
 
-void ABomberCharacter::MoveVertical(const FInputActionValue& InputValue)
-{
-	float Value = InputValue.GetMagnitude();
-	AddMovementInput(FVector::RightVector, Value);
-}
-
-void ABomberCharacter::MoveHorizontal(const FInputActionValue& InputValue)
-{
-	float Value = InputValue.GetMagnitude();
-	AddMovementInput(FVector::ForwardVector,Value);
-}
 
 // Called every frame
 void ABomberCharacter::Tick(float DeltaTime)

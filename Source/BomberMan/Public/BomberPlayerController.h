@@ -20,10 +20,10 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupInputComponent() override;
 
-
 protected:
-	UPROPERTY()
-	APawn* Pawn;
+	UPROPERTY(EditAnywhere)
+	APawn* NowPawn;
+	
 
 protected:
 
