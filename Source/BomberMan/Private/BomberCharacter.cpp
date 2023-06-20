@@ -30,7 +30,11 @@ float ABomberCharacter::GetSnappedValue(int Value, float Scale)
 
 FVector ABomberCharacter::GetSnappedPosition(FVector SourcePos)
 {
+	SourcePos.X =GetSnappedValue(SourcePos.X, 100.0f);
+	SourcePos.Y = GetSnappedValue(SourcePos.Y, 100.0f);
 
+	const FVector TempPos = FVector(SourcePos.X, SourcePos.Y, 0);
+	return TempPos;
 }
 
 
@@ -55,7 +59,8 @@ void ABomberCharacter::SpawnBomb()
 		//生成物的拥有者
 		FActorSpawnParameters Parameters;
 		Parameters.Owner = this;
-		GetWorld()->SpawnActor<ABomb>(Bomb, GetActorLocation(), FRotator::ZeroRotator,Parameters);
+		const FVector SpawnPos = GetSnappedPosition(GetActorLocation());
+		GetWorld()->SpawnActor<ABomb>(Bomb, SpawnPos, FRotator::ZeroRotator,Parameters);
 	}
 }
 
