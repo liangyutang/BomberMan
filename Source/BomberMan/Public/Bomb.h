@@ -15,6 +15,10 @@ public:
 	// Sets default values for this actor's properties
 	ABomb();
 
+	FTimerHandle TimerHandle_Detonate;
+
+	UPROPERTY(EditAnywhere,Category="FX")
+	float DetonateDelay = 1.0f;
 protected:
 
 	UPROPERTY(VisibleAnywhere,Category="Component")
@@ -34,6 +38,7 @@ protected:
 	UFUNCTION()
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	void Detonate();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

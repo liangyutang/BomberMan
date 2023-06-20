@@ -30,6 +30,8 @@ void ABomb::BeginPlay()
 	BoxCollision->SetCollisionResponseToAllChannels(ECR_Overlap);
 
 	BoxCollision->OnComponentEndOverlap.AddDynamic(this, &ABomb::OnOverlapEnd);
+
+	GetWorldTimerManager().SetTimer(TimerHandle_Detonate, this, &ABomb::Detonate, DetonateDelay, false);
 }
 
 void ABomb::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
@@ -39,6 +41,11 @@ void ABomb::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* Other
 	{
 		BoxCollision->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
 	}
+}
+
+void ABomb::Detonate()
+{
+	Destroy();
 }
 
 // Called every frame
