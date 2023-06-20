@@ -48,6 +48,26 @@ void ABomb::Detonate()
 	Destroy();
 }
 
+FVector ABomb::LineTraceDirection(const FVector& Direction)
+{
+	TArray<FHitResult> Hits;
+
+	const FVector Origin = GetActorLocation();
+	FVector EndPos = Direction * 100 * BlastRange;
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	GetWorld()->LineTraceMultiByChannel(Hits, Origin, EndPos,ECC_EngineTraceChannel1,Params);
+
+	if (Hits.Num()>0)
+	{
+		EndPos=Hits.Last().ImpactPoint;
+	}
+
+	return EndPos;
+}
+
 // Called every frame
 void ABomb::Tick(float DeltaTime)
 {

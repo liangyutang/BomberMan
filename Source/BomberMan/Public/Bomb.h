@@ -30,6 +30,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Component")
 	UParticleSystemComponent* SparkPar;
 
+	//冲击波范围
+	UPROPERTY(EditAnywhere,Category="FX",meta=(ClampMin="1.0",ClampMax="10.0"))
+	float BlastRange=1.0f;
 
 protected:
 	// Called when the game starts or when spawned
@@ -39,6 +42,13 @@ protected:
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	void Detonate();
+
+	/**
+	 * @brief 检测单个方向的爆炸范围内的障碍物
+	 * @param Direction 
+	 * @return 
+	 */
+	FVector LineTraceDirection(const FVector& Direction);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
