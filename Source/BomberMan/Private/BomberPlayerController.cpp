@@ -2,8 +2,10 @@
 
 
 #include "BomberPlayerController.h"
-#include "EnhancedInputComponent.h"
+
+#include "BomberCharacter.h"
 #include "EnhancedInputSubsystems.h"
+#include "EnhancedInputComponent.h"
 
 
 void ABomberPlayerController::SetupInputComponent()
@@ -31,9 +33,15 @@ void ABomberPlayerController::SetupInputComponent()
 			EnhancedInputComponent->BindAction(IA_MoveHorizontal, ETriggerEvent::Triggered, this, &ABomberPlayerController::MoveHorizontal);
 		}
 
+
 		if (IA_MoveVertical)
 		{
 			EnhancedInputComponent->BindAction(IA_MoveVertical, ETriggerEvent::Triggered, this, &ABomberPlayerController::MoveVertical);
+		}
+
+		if (IA_SpawnBomb)
+		{
+			EnhancedInputComponent->BindAction(IA_SpawnBomb, ETriggerEvent::Started, this, &ABomberPlayerController::SpawnBombInput);
 		}
 	}
 	
@@ -42,14 +50,14 @@ void ABomberPlayerController::SetupInputComponent()
 void ABomberPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	NowPawn = GetPawn();
 }
 
 
 void ABomberPlayerController::MoveVertical(const FInputActionValue& InputValue)
 {
 	const float Value = InputValue.GetMagnitude();
-	
+
+	NowPawn = GetPawn();
 	if (NowPawn)
 	{
 		NowPawn->AddMovementInput(FVector::RightVector, Value);
@@ -60,8 +68,21 @@ void ABomberPlayerController::MoveHorizontal(const FInputActionValue& InputValue
 {
 	const float Value = InputValue.GetMagnitude();
 
+	NowPawn = GetPawn();
 	if (NowPawn)
 	{
 		NowPawn->AddMovementInput(FVector::ForwardVector, Value);
+	}
+}
+
+void ABomberPlayerController::SpawnBombInput()
+{
+	NowPawn = GetPawn();
+	if (NowPawn)
+	{
+		if (ABomberCharacter* BombPlayer= Cast<ABomberCharacter>(NowPawn))
+		{
+			BombPlayer->SpawnBomb();
+		}
 	}
 }

@@ -3,8 +3,7 @@
 
 #include "BomberCharacter.h"
 
-#include "EnhancedInputSubsystems.h"
-#include "EnhancedInputComponent.h"
+#include "Bomb.h"
 
 // Sets default values
 ABomberCharacter::ABomberCharacter()
@@ -34,5 +33,13 @@ void ABomberCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void ABomberCharacter::SpawnBomb()
+{
+	if (Bomb)
+	{
+		GetWorld()->SpawnActor<ABomb>(Bomb, GetActorLocation(), FRotator::ZeroRotator);
+	}
 }
 

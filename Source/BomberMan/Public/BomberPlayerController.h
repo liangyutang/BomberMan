@@ -33,6 +33,8 @@ protected:
 
 	void MoveHorizontal(const FInputActionValue& InputValue);
 
+	void SpawnBombInput();
+
 private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Context", meta = (AllowPrivateAccess = "true"))
@@ -46,4 +48,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Context", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UInputAction> IA_MoveHorizontal;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Context", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UInputAction> IA_SpawnBomb;
 };
