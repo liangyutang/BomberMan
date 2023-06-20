@@ -39,7 +39,10 @@ void ABomberCharacter::SpawnBomb()
 {
 	if (Bomb)
 	{
-		GetWorld()->SpawnActor<ABomb>(Bomb, GetActorLocation(), FRotator::ZeroRotator);
+		//生成物的拥有者
+		FActorSpawnParameters Parameters;
+		Parameters.Owner = this;
+		GetWorld()->SpawnActor<ABomb>(Bomb, GetActorLocation(), FRotator::ZeroRotator,Parameters);
 	}
 }
 
