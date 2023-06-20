@@ -25,6 +25,16 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	/**
+	 * @brief 修正炸弹到砖块上
+	 * @param Value 当前位置
+	 * @param Scale 砖块大小
+	 * @return 
+	 */
+	float GetSnappedValue(int Value, float Scale);
+
+	FVector GetSnappedPosition(FVector SourcePos);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

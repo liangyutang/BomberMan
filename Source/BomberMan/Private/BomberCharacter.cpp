@@ -20,6 +20,19 @@ void ABomberCharacter::BeginPlay()
 	
 }
 
+float ABomberCharacter::GetSnappedValue(int Value, float Scale)
+{
+	const int Remains= Value%static_cast<int>(Scale);
+
+	//ËÄÉáÎåÈë
+	return FMath::Abs(Remains) > Scale / 2?Value-Remains+(Value<0?-Scale:Scale):Value-Remains;
+}
+
+FVector ABomberCharacter::GetSnappedPosition(FVector SourcePos)
+{
+
+}
+
 
 // Called every frame
 void ABomberCharacter::Tick(float DeltaTime)
