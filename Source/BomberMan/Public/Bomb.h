@@ -47,8 +47,6 @@ protected:
 	UFUNCTION()
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-	void Detonate();
-
 	/**
 	 * @brief 检测单个方向的爆炸范围内的障碍物
 	 * @param Direction 
@@ -63,5 +61,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void SetBlastRange(float TempBlastRange) { this->BlastRange = TempBlastRange; }
+
+	void Detonate();
 	
 };

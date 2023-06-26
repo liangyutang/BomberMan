@@ -29,6 +29,9 @@ protected:
 
 	//可以摆放的炸弹数量
 	int BombLimit = 1;
+
+	bool bHasRemote = false;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -56,6 +59,10 @@ public:
 	void IncreaseBlastRange(float BlastRangeBoost) { this->BlastRange += BlastRange; }
 
 	void IncreaseBombLimit() { BombLimit++; }
+
+	void SetHasRemoteTrue() { bHasRemote = true; }
+
+	FORCEINLINE bool GetBHasRemote() const { return bHasRemote; }
 private:
 
 

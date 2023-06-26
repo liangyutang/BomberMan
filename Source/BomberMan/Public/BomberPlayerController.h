@@ -35,6 +35,8 @@ protected:
 
 	void SpawnBombInput();
 
+	void RemoteDetonateInput();
+
 private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Context", meta = (AllowPrivateAccess = "true"))
@@ -51,4 +53,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Context", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UInputAction> IA_SpawnBomb;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Context", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UInputAction> IA_RemoteDetonate;
 };

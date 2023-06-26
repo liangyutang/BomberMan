@@ -3,6 +3,7 @@
 
 #include "BomberPlayerController.h"
 
+#include "Bomb.h"
 #include "BomberCharacter.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
@@ -42,6 +43,10 @@ void ABomberPlayerController::SetupInputComponent()
 		if (IA_SpawnBomb)
 		{
 			EnhancedInputComponent->BindAction(IA_SpawnBomb, ETriggerEvent::Started, this, &ABomberPlayerController::SpawnBombInput);
+		}
+		if (IA_RemoteDetonate)
+		{
+			EnhancedInputComponent->BindAction(IA_RemoteDetonate, ETriggerEvent::Started, this, &ABomberPlayerController::RemoteDetonateInput);
 		}
 	}
 	
@@ -83,6 +88,33 @@ void ABomberPlayerController::SpawnBombInput()
 		if (ABomberCharacter* BombPlayer= Cast<ABomberCharacter>(NowPawn))
 		{
 			BombPlayer->SpawnBomb();
+		}
+	}
+}
+
+void ABomberPlayerController::RemoteDetonateInput()
+{
+	APawn* TempPawn = GetPawn();
+	if (TempPawn)
+	{
+		ABomberCharacter* TempPlayer =Cast<ABomberCharacter>(TempPawn);
+		if (TempPlayer)
+		{
+			if (!TempPlayer->GetBHasRemote())
+			{
+				return;
+			}
+			else
+			{
+				for (int i=0;i< TempPlayer->PlacedBombs.Num();i++)
+				{
+					if (TempPlayer->PlacedBombs[i])
+					{
+						TempPlayer->PlacedBombs[i]->Detonate();
+						i--;
+					}
+				}
+			}
 		}
 	}
 }

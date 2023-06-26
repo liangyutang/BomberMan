@@ -35,9 +35,16 @@ void ABomb::BeginPlay()
 
 	BoxCollision->OnComponentEndOverlap.AddDynamic(this, &ABomb::OnOverlapEnd);
 
-	GetWorldTimerManager().SetTimer(TimerHandle_Detonate, this, &ABomb::Detonate, DetonateDelay, false);
-
-	BomberCharacter= Cast<ABomberCharacter>(GetOwner());
+	BomberCharacter = Cast<ABomberCharacter>(GetOwner());
+	//放置的是否为定时炸弹
+	if (!BomberCharacter->GetBHasRemote())
+	{
+		GetWorldTimerManager().SetTimer(TimerHandle_Detonate, this, &ABomb::Detonate, DetonateDelay, false);
+	}
+	else
+	{
+		GetWorldTimerManager().SetTimer(TimerHandle_Detonate, this, &ABomb::Detonate, 3.0f, false);
+	}
 }
 
 void ABomb::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)

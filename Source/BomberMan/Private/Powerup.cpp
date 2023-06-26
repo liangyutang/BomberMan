@@ -56,7 +56,9 @@ void APowerup::NotifyActorBeginOverlap(AActor* OtherActor)
 		case EPowerupType::LongerBlast: 
 			BomberCharacter->IncreaseBlastRange(BlastRangeBoost);
 			break;
-		case EPowerupType::RemoteBomb: break;
+		case EPowerupType::RemoteBomb: 
+			BomberCharacter->SetHasRemoteTrue();
+			break;
 		default: ;
 		}
 		Destroy();
