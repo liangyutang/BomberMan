@@ -54,7 +54,7 @@ protected:
 	FVector LineTraceDirection(const FVector& Direction);
 
 	//±¬Õ¨Éú³É
-	void SpawnBlast(FVector Direction);
+	void SpawnBlast(const FVector& Direction);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -71,10 +71,19 @@ FVector ABomb::LineTraceDirection(const FVector& Direction)
 	return EndPos;
 }
 
-void ABomb::SpawnBlast(FVector Direction)
+void ABomb::SpawnBlast(const FVector& Direction)
 {
-	ABlastFX * Blast =GetWorld()->SpawnActor<ABlastFX>(BlastFX, GetActorLocation(), FRotator::ZeroRotator);
-	Blast->SetupBlast(LineTraceDirection(Direction), LineTraceDirection(-Direction));
+	if (Direction==FVector::ForwardVector)
+	{
+		//炸弹特效生成位置修改，可以产生爆炸特效被障碍物阻挡的效果：(LineTraceDirection(Direction)+LineTraceDirection(-Direction))/2
+		ABlastFX* Blast = GetWorld()->SpawnActor<ABlastFX>(BlastFX, (LineTraceDirection(Direction)+LineTraceDirection(-Direction))/2, FRotator::ZeroRotator);
+		Blast->SetupBlast(LineTraceDirection(Direction), LineTraceDirection(-Direction));
+	}
+	else if (Direction==FVector::RightVector)
+	{
+		ABlastFX* Blast = GetWorld()->SpawnActor<ABlastFX>(BlastFX, (LineTraceDirection(Direction) + LineTraceDirection(-Direction)) / 2, FRotator(0, 90, 0));
+		Blast->SetupBlast(LineTraceDirection(Direction), LineTraceDirection(-Direction));
+	}
 }
 
 // Called every frame

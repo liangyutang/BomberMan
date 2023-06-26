@@ -35,21 +35,11 @@ void ABlastFX::Tick(float DeltaTime)
 void ABlastFX::SetupBlast(FVector InitPos, FVector LastPos)
 {
 	//获取长度
-	float Stretch= FVector::Distance(InitPos, LastPos) / 100;
+	const float Stretch= FVector::Distance(InitPos, LastPos) / 100;
 
 	FVector Scale = GetActorScale3D();
-
-	if (InitPos.X==LastPos.X)
-	{
-		//垂直方向
-		Scale.X = Stretch;
-	}else if (InitPos.Y == LastPos.Y)
-	{
-		//水平方向
-		Scale.Y = Stretch;
-		//旋转
-		SetActorRotation(FRotator(0, 0, 90));
-	}
+	//设置长度
+	Scale.X = Stretch;
 	SetActorScale3D(Scale);
 }
 
