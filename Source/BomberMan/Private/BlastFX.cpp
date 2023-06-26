@@ -22,7 +22,13 @@ ABlastFX::ABlastFX()
 void ABlastFX::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	GetWorldTimerManager().SetTimer(TimerHandle_Destroy, this, &ABlastFX::DelayDestroy, 1.0f, false);
+}
+
+void ABlastFX::DelayDestroy()
+{
+	Destroy();
 }
 
 // Called every frame

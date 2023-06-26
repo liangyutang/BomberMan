@@ -4,9 +4,11 @@
 #include "Bomb.h"
 
 #include "BlastFX.h"
+#include "BreakableBlock.h"
 #include "Components/BoxComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 
+class ABreakableBlock;
 // Sets default values
 ABomb::ABomb()
 {
@@ -66,6 +68,14 @@ FVector ABomb::LineTraceDirection(const FVector& Direction)
 	if (Hits.Num()>0)
 	{
 		EndPos=Hits.Last().ImpactPoint;
+		//是否是可销毁的障碍物，若是，则销毁
+		for (FHitResult& Hit : Hits)
+		{
+			if (ABreakableBlock* BreakableBlock=Cast<ABreakableBlock>(Hit.GetActor()))
+			{
+				BreakableBlock->Destroy();
+			}
+		}
 	}
 
 	return EndPos;

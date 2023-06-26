@@ -25,10 +25,13 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Component")
 	USceneComponent* RootComp;
 
+	FTimerHandle TimerHandle_Destroy;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void DelayDestroy();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
