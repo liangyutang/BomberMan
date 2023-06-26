@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BomberMan/BomberManGameModeBase.h"
 #include "GameFramework/Actor.h"
 #include "Powerup.generated.h"
 
@@ -27,6 +28,8 @@ protected:
 	//ÌùÍ¼Êý×é
 	UPROPERTY(EditAnywhere,Category="Component")
 	TArray<UTexture2D*> Sprites;
+
+	EPowerupType PowerupType;
 
 protected:
 	// Called when the game starts or when spawned

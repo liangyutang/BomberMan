@@ -24,6 +24,8 @@ void APowerup::BeginPlay()
 {
 	Super::BeginPlay();
 
+	PowerupType =StaticCast<EPowerupType>( FMath::RandRange(0, 3));
+
 	//ÉèÖÃÌùÍ¼
 	Billboard->SetSprite(Sprites[FMath::RandRange(0, 3)]);
 }

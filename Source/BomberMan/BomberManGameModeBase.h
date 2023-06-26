@@ -6,6 +6,14 @@
 #include "GameFramework/GameModeBase.h"
 #include "BomberManGameModeBase.generated.h"
 
+enum class EPowerupType:uint8
+{
+	SpeedBoost,//加速度
+	MoreBombs,//摆放数量
+	LongerBlast,//爆炸范围
+	RemoteBomb//定时炸弹
+};
+
 /**
  * 
  */
