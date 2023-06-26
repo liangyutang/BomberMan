@@ -16,13 +16,19 @@ public:
 	// Sets default values for this character's properties
 	ABomberCharacter();
 
+
+	//场景中该主角放的炸弹
+	TArray<class ABomb*> PlacedBombs;
 protected:
 
 	UPROPERTY(EditAnywhere,Category="Bomb")
 	TSubclassOf<class ABomb> Bomb;
 
+	//单方向爆炸范围
 	int BlastRange = 1;
 
+	//可以摆放的炸弹数量
+	int BombLimit = 1;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -37,6 +43,7 @@ protected:
 
 	FVector GetSnappedPosition(FVector SourcePos);
 
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -47,6 +54,8 @@ public:
 	void SpawnBomb();
 
 	void IncreaseBlastRange(float BlastRangeBoost) { this->BlastRange += BlastRange; }
+
+	void IncreaseBombLimit() { BombLimit++; }
 private:
 
 

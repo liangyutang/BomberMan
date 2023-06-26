@@ -56,14 +56,22 @@ void ABomberCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void ABomberCharacter::SpawnBomb()
 {
+	//是否超出放置数量
+	if (PlacedBombs.Num()>=BombLimit)
+	{
+		return;
+	}
+
 	if (Bomb)
 	{
 		//生成物的拥有者
 		FActorSpawnParameters Parameters;
 		Parameters.Owner = this;
+
 		const FVector SpawnPos = GetSnappedPosition(GetActorLocation());
 		ABomb* TempBomb = GetWorld()->SpawnActor<ABomb>(Bomb, SpawnPos, FRotator::ZeroRotator,Parameters);
 		TempBomb->SetBlastRange(BlastRange);
+		PlacedBombs.Add(TempBomb);
 	}
 }
 

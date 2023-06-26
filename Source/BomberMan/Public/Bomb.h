@@ -37,6 +37,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "FX")
 	TSubclassOf<class ABlastFX> BlastFX;
 
+	UPROPERTY(EditAnywhere,Category="Power")
+	class ABomberCharacter* BomberCharacter;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

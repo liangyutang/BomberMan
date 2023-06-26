@@ -4,6 +4,7 @@
 #include "Bomb.h"
 
 #include "BlastFX.h"
+#include "BomberCharacter.h"
 #include "BreakableBlock.h"
 #include "Components/BoxComponent.h"
 #include "Particles/ParticleSystemComponent.h"
@@ -35,11 +36,12 @@ void ABomb::BeginPlay()
 	BoxCollision->OnComponentEndOverlap.AddDynamic(this, &ABomb::OnOverlapEnd);
 
 	GetWorldTimerManager().SetTimer(TimerHandle_Detonate, this, &ABomb::Detonate, DetonateDelay, false);
+
+	BomberCharacter= Cast<ABomberCharacter>(GetOwner());
 }
 
 void ABomb::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	UE_LOG(LogTemp, Error, TEXT("1"));
 	if (OtherActor==GetOwner())
 	{
 		BoxCollision->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
@@ -50,7 +52,13 @@ void ABomb::Detonate()
 {
 	SpawnBlast(FVector::RightVector);
 	SpawnBlast(FVector::ForwardVector);
+
+	if (BomberCharacter)
+	{
+		BomberCharacter->PlacedBombs.Remove(this);
+	}
 	Destroy();
+
 }
 
 FVector ABomb::LineTraceDirection(const FVector& Direction)

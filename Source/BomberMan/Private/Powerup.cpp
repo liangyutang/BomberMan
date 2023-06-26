@@ -51,6 +51,7 @@ void APowerup::NotifyActorBeginOverlap(AActor* OtherActor)
 			BomberCharacter->GetCharacterMovement()->MaxWalkSpeed += SpeedBoost;
 			break;
 		case EPowerupType::MoreBombs:
+			BomberCharacter->IncreaseBombLimit();
 			break;
 		case EPowerupType::LongerBlast: 
 			BomberCharacter->IncreaseBlastRange(BlastRangeBoost);
