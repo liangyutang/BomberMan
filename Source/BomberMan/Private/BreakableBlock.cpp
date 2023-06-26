@@ -3,6 +3,8 @@
 
 #include "BreakableBlock.h"
 
+#include "Powerup.h"
+#include "BomberMan/BomberManGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -19,7 +21,8 @@ ABreakableBlock::ABreakableBlock()
 void ABreakableBlock::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	BomberManGameMode =Cast<ABomberManGameModeBase>(GetWorld()->GetAuthGameMode());
 }
 
 // Called every frame
@@ -32,6 +35,11 @@ void ABreakableBlock::Tick(float DeltaTime)
 void ABreakableBlock::OnDestroy()
 {
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), Explosion, GetActorLocation(), GetActorRotation());
+
+	if (FMath::RandRange(0.0f,1.0f)<BomberManGameMode->GetDropChance())
+	{
+		GetWorld()->SpawnActor<APowerup>(Powerup, GetActorLocation(), GetActorRotation());
+	}
 	Destroy();
 }
 

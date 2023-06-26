@@ -23,6 +23,11 @@ protected:
 	UPROPERTY(EditAnywhere,Category="Explosion")
 	UParticleSystem* Explosion;
 
+	UPROPERTY(VisibleAnywhere)
+	class ABomberManGameModeBase* BomberManGameMode;
+
+	UPROPERTY(EditAnywhere, Category = "Powerup")
+	TSubclassOf<class APowerup> Powerup;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
