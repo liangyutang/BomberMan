@@ -34,6 +34,9 @@ protected:
 	UPROPERTY(EditAnywhere,Category="FX",meta=(ClampMin="1.0",ClampMax="10.0"))
 	float BlastRange=1.0f;
 
+	UPROPERTY(EditAnywhere, Category = "FX")
+	TSubclassOf<class ABlastFX> BlastFX;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -49,6 +52,9 @@ protected:
 	 * @return 
 	 */
 	FVector LineTraceDirection(const FVector& Direction);
+
+	//±¬Õ¨Éú³É
+	void SpawnBlast(FVector Direction);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

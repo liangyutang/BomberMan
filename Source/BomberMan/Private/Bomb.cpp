@@ -3,6 +3,7 @@
 
 #include "Bomb.h"
 
+#include "BlastFX.h"
 #include "Components/BoxComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 
@@ -45,6 +46,8 @@ void ABomb::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* Other
 
 void ABomb::Detonate()
 {
+	SpawnBlast(FVector::RightVector);
+	SpawnBlast(FVector::ForwardVector);
 	Destroy();
 }
 
@@ -58,7 +61,7 @@ FVector ABomb::LineTraceDirection(const FVector& Direction)
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
 
-	GetWorld()->LineTraceMultiByChannel(Hits, Origin, EndPos,ECC_EngineTraceChannel1,Params);
+	GetWorld()->LineTraceMultiByChannel(Hits, Origin, EndPos,ECC_GameTraceChannel1,Params);
 
 	if (Hits.Num()>0)
 	{
@@ -66,6 +69,12 @@ FVector ABomb::LineTraceDirection(const FVector& Direction)
 	}
 
 	return EndPos;
+}
+
+void ABomb::SpawnBlast(FVector Direction)
+{
+	ABlastFX * Blast =GetWorld()->SpawnActor<ABlastFX>(BlastFX, GetActorLocation(), FRotator::ZeroRotator);
+	Blast->SetupBlast(LineTraceDirection(Direction), LineTraceDirection(-Direction));
 }
 
 // Called every frame

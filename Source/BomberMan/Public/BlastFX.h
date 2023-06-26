@@ -21,7 +21,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere,Category="Component")
 	UStaticMeshComponent* BlastFxSM;
-7
+
 	UPROPERTY(VisibleAnywhere, Category = "Component")
 	USceneComponent* RootComp;
 
