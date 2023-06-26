@@ -25,8 +25,8 @@ protected:
 	class UBillboardComponent* Billboard;
 
 	//ÌùÍ¼Êý×é
-	UPROPERTY(VisibleAnywhere,Category="Component")
-	TArray<UTexture2D*> Sprite;
+	UPROPERTY(EditAnywhere,Category="Component")
+	TArray<UTexture2D*> Sprites;
 
 protected:
 	// Called when the game starts or when spawned

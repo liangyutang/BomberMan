@@ -16,13 +16,16 @@ APowerup::APowerup()
 
 	Billboard = CreateDefaultSubobject<UBillboardComponent>("Billboard");
 	Billboard->SetupAttachment(BoxCollision);
+	Billboard->SetHiddenInGame(false);
 }
 
 // Called when the game starts or when spawned
 void APowerup::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	//ÉèÖÃÌùÍ¼
+	Billboard->SetSprite(Sprites[FMath::RandRange(0, 3)]);
 }
 
 // Called every frame
