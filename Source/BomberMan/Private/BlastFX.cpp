@@ -43,6 +43,9 @@ void ABlastFX::SetupBlast(FVector InitPos, FVector LastPos)
 	//获取长度
 	const float Stretch= FVector::Distance(InitPos, LastPos) / 100;
 
+
+	SetActorLocation(FMath::Lerp(InitPos, LastPos, 0.5f));
+
 	FVector Scale = GetActorScale3D();
 	//设置长度
 	Scale.X = Stretch;

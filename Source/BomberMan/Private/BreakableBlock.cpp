@@ -3,6 +3,8 @@
 
 #include "BreakableBlock.h"
 
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 ABreakableBlock::ABreakableBlock()
 {
@@ -25,5 +27,11 @@ void ABreakableBlock::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ABreakableBlock::OnDestroy()
+{
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), Explosion, GetActorLocation(), GetActorRotation());
+	Destroy();
 }
 
