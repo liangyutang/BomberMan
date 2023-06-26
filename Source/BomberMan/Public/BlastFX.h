@@ -16,13 +16,15 @@ public:
 	ABlastFX();
 
 
+
 protected:
 
 	UPROPERTY(VisibleAnywhere,Category="Component")
 	UStaticMeshComponent* BlastFxSM;
-
+7
 	UPROPERTY(VisibleAnywhere, Category = "Component")
 	USceneComponent* RootComp;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -30,5 +32,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void SetupBlast(FVector InitPos, FVector LastPos);
 
 };

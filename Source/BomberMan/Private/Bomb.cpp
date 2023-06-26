@@ -53,7 +53,7 @@ FVector ABomb::LineTraceDirection(const FVector& Direction)
 	TArray<FHitResult> Hits;
 
 	const FVector Origin = GetActorLocation();
-	FVector EndPos = Direction * 100 * BlastRange;
+	FVector EndPos = Origin+Direction * 100 * BlastRange;
 
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
