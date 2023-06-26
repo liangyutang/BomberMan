@@ -25,11 +25,11 @@ APowerup::APowerup()
 void APowerup::BeginPlay()
 {
 	Super::BeginPlay();
-
-	PowerupType =StaticCast<EPowerupType>( FMath::RandRange(0, 3));
+	int TempRand = FMath::RandRange(0, 3);
+	PowerupType =StaticCast<EPowerupType>(TempRand);
 
 	//ÉèÖÃÌùÍ¼
-	Billboard->SetSprite(Sprites[FMath::RandRange(0, 3)]);
+	Billboard->SetSprite(Sprites[TempRand]);
 }
 
 // Called every frame
@@ -43,15 +43,18 @@ void APowerup::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	if (const ABomberCharacter* BomberCharacter =Cast<ABomberCharacter>(OtherActor))
+	if (ABomberCharacter* BomberCharacter =Cast<ABomberCharacter>(OtherActor))
 	{
 		switch (PowerupType)
 		{
 		case EPowerupType::SpeedBoost:
 			BomberCharacter->GetCharacterMovement()->MaxWalkSpeed += SpeedBoost;
 			break;
-		case EPowerupType::MoreBombs: break;
-		case EPowerupType::LongerBlast: break;
+		case EPowerupType::MoreBombs:
+			break;
+		case EPowerupType::LongerBlast: 
+			BomberCharacter->IncreaseBlastRange(BlastRangeBoost);
+			break;
 		case EPowerupType::RemoteBomb: break;
 		default: ;
 		}

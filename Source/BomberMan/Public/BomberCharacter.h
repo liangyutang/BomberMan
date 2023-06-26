@@ -21,6 +21,8 @@ protected:
 	UPROPERTY(EditAnywhere,Category="Bomb")
 	TSubclassOf<class ABomb> Bomb;
 
+	int BlastRange = 1;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -43,6 +45,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void SpawnBomb();
+
+	void IncreaseBlastRange(float BlastRangeBoost) { this->BlastRange += BlastRange; }
 private:
 
 

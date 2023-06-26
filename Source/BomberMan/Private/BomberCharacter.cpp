@@ -4,6 +4,7 @@
 #include "BomberCharacter.h"
 
 #include "Bomb.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 ABomberCharacter::ABomberCharacter()
@@ -11,6 +12,7 @@ ABomberCharacter::ABomberCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	GetCharacterMovement()->MaxWalkSpeed = 450.f;
 }
 
 // Called when the game starts or when spawned
@@ -60,7 +62,8 @@ void ABomberCharacter::SpawnBomb()
 		FActorSpawnParameters Parameters;
 		Parameters.Owner = this;
 		const FVector SpawnPos = GetSnappedPosition(GetActorLocation());
-		GetWorld()->SpawnActor<ABomb>(Bomb, SpawnPos, FRotator::ZeroRotator,Parameters);
+		ABomb* TempBomb = GetWorld()->SpawnActor<ABomb>(Bomb, SpawnPos, FRotator::ZeroRotator,Parameters);
+		TempBomb->SetBlastRange(BlastRange);
 	}
 }
 
