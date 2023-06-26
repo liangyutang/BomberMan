@@ -31,6 +31,9 @@ protected:
 
 	EPowerupType PowerupType;
 
+	UPROPERTY(EditAnywhere,Category="Powerup")
+	int SpeedBoost = 50;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -41,4 +44,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 };

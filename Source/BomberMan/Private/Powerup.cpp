@@ -3,8 +3,10 @@
 
 #include "Powerup.h"
 
+#include "BomberCharacter.h"
 #include "Components/BillboardComponent.h"
 #include "Components/BoxComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 APowerup::APowerup()
@@ -35,5 +37,26 @@ void APowerup::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void APowerup::NotifyActorBeginOverlap(AActor* OtherActor)
+{
+	Super::NotifyActorBeginOverlap(OtherActor);
+
+	if (const ABomberCharacter* BomberCharacter =Cast<ABomberCharacter>(OtherActor))
+	{
+		switch (PowerupType)
+		{
+		case EPowerupType::SpeedBoost:
+			BomberCharacter->GetCharacterMovement()->MaxWalkSpeed += SpeedBoost;
+			break;
+		case EPowerupType::MoreBombs: break;
+		case EPowerupType::LongerBlast: break;
+		case EPowerupType::RemoteBomb: break;
+		default: ;
+		}
+		Destroy();
+	}
+	
 }
 
