@@ -30,6 +30,18 @@ protected:
 	UPROPERTY(EditAnywhere,Category="Powerup", meta = (ClampMin = "0.0", ClampMax = "1.0"))
 	float DropChance = 0.4f;
 
+	//游戏总时间，300秒
+	UPROPERTY(EditAnywhere,Category="Time")
+	float TotalTime = 300.f;
+
+	UPROPERTY(VisibleAnywhere,Category="Time")
+	FText TimeText;
+
+protected:
+	
+
 public:
+	virtual void Tick(float DeltaSeconds) override;
+
 	FORCEINLINE float GetDropChance() const { return DropChance; }
 };
