@@ -37,12 +37,15 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Powerup")
 	float BlastRangeBoost = 1.0f;
 
+	UPROPERTY()
+	class ABomberCharacter* BomberCharacter;
 
+	FTimerHandle TimerHandle_ResetPlayer;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-
+	void ResetPlayer();
 
 public:	
 	// Called every frame

@@ -18,17 +18,25 @@ public:
 
 
 	//场景中该主角放的炸弹
+	UPROPERTY()
 	TArray<class ABomb*> PlacedBombs;
+
 protected:
 
 	UPROPERTY(EditAnywhere,Category="Bomb")
 	TSubclassOf<class ABomb> Bomb;
 
+	int InitialBlastRange = 1;
+
+	int InitialBombLimit = 1;
+
+	float InitialMaxWalkSpeed = 450.0f;
+
 	//单方向爆炸范围
-	int BlastRange = 1;
+	int BlastRange;
 
 	//可以摆放的炸弹数量
-	int BombLimit = 1;
+	int BombLimit;
 
 	bool bHasRemote = false;
 
@@ -63,6 +71,8 @@ public:
 	void SetHasRemoteTrue() { bHasRemote = true; }
 
 	FORCEINLINE bool GetBHasRemote() const { return bHasRemote; }
+
+	void ResetInitial();
 private:
 
 

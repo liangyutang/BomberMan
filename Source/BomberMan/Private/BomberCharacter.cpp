@@ -19,6 +19,11 @@ ABomberCharacter::ABomberCharacter()
 void ABomberCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//定义一些初始数据
+	BombLimit = InitialBombLimit;
+	BlastRange = InitialBlastRange;
+	GetCharacterMovement()->MaxWalkSpeed = InitialMaxWalkSpeed;
 	
 }
 
@@ -73,5 +78,13 @@ void ABomberCharacter::SpawnBomb()
 		TempBomb->SetBlastRange(BlastRange);
 		PlacedBombs.Add(TempBomb);
 	}
+}
+
+void ABomberCharacter::ResetInitial()
+{
+	BombLimit = InitialBombLimit;
+	BlastRange = InitialBlastRange;
+	GetCharacterMovement()->MaxWalkSpeed = InitialMaxWalkSpeed;
+	bHasRemote = false;
 }
 

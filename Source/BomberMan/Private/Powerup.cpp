@@ -32,6 +32,12 @@ void APowerup::BeginPlay()
 	Billboard->SetSprite(Sprites[TempRand]);
 }
 
+void APowerup::ResetPlayer()
+{
+	BomberCharacter->ResetInitial();
+	BomberCharacter = nullptr;
+}
+
 // Called every frame
 void APowerup::Tick(float DeltaTime)
 {
@@ -43,7 +49,9 @@ void APowerup::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	if (ABomberCharacter* BomberCharacter =Cast<ABomberCharacter>(OtherActor))
+	BomberCharacter = Cast<ABomberCharacter>(OtherActor);
+
+	if (BomberCharacter)
 	{
 		switch (PowerupType)
 		{
@@ -61,6 +69,9 @@ void APowerup::NotifyActorBeginOverlap(AActor* OtherActor)
 			break;
 		default: ;
 		}
+
+		GetWorldTimerManager().SetTimer(TimerHandle_ResetPlayer, this, &APowerup::ResetPlayer, 6.0f, false);
+
 		Destroy();
 	}
 	
