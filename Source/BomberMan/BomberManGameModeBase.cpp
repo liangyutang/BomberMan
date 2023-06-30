@@ -5,6 +5,7 @@
 
 #include "BomberCharacter.h"
 #include "BomberPlayerController.h"
+#include "BomberSaveGame.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetStringLibrary.h"
 #include "UserWidget/BomberHUD.h"
@@ -25,6 +26,46 @@ void ABomberManGameModeBase::BeginPlay()
 	//创建HUD
 	BomberHUD=CreateWidget<UBomberHUD>(GetWorld(), LoadClass<UBomberHUD>(this, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/WBP_HUD.WBP_HUD_C'")));
 	BomberHUD->AddToViewport();
+
+	//创建存储文件
+	BomberSaveInstance = Cast<UBomberSaveGame>( UGameplayStatics::CreateSaveGameObject(UBomberSaveGame::StaticClass()));
+}
+
+void ABomberManGameModeBase::IncrementP1Victories()
+{
+	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName,UserIndex))
+	{
+		//加载存储文件
+		BomberSaveInstance= Cast<UBomberSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName,UserIndex));
+	}
+	else
+	{
+		//没有找到存储文件，则创建
+		BomberSaveInstance = Cast<UBomberSaveGame>(UGameplayStatics::CreateSaveGameObject(UBomberSaveGame::StaticClass()));
+	}
+
+	BomberSaveInstance->IncreaseP1Victories();
+
+	UGameplayStatics::SaveGameToSlot(BomberSaveInstance, SaveSlotName, UserIndex);
+}
+
+void ABomberManGameModeBase::IncrementP2Victories()
+{
+	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, UserIndex))
+	{
+		//加载存储文件
+		BomberSaveInstance = Cast<UBomberSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName, UserIndex));
+	}
+	else
+	{
+		//没有找到存储文件，则创建
+		BomberSaveInstance = Cast<UBomberSaveGame>(UGameplayStatics::CreateSaveGameObject(UBomberSaveGame::StaticClass()));
+	}
+
+	BomberSaveInstance->IncreaseP2Victories();
+
+	UGameplayStatics::SaveGameToSlot(BomberSaveInstance, SaveSlotName, UserIndex);
+
 }
 
 void ABomberManGameModeBase::Tick(float DeltaSeconds)

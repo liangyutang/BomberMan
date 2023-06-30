@@ -40,8 +40,22 @@ protected:
 	//绑定HUD
 	UPROPERTY(EditAnywhere,Category="HUD")
 	class UBomberHUD* BomberHUD;
+
+	UPROPERTY()
+	class UBomberSaveGame* BomberSaveInstance;
+
+	//存储密钥
+	FString	SaveSlotName = "MathValue";
+
+	//用户索引
+	int UserIndex = 0;
 protected:
 	virtual void BeginPlay() override;
+
+	//重点**********************************
+	void IncrementP1Victories();
+
+	void IncrementP2Victories();
 
 public:
 	virtual void Tick(float DeltaSeconds) override;
