@@ -37,8 +37,11 @@ protected:
 	UPROPERTY(VisibleAnywhere,Category="Time")
 	FText TimeText;
 
+	//°ó¶¨HUD
+	UPROPERTY(EditAnywhere,Category="HUD")
+	class UBomberHUD* BomberHUD;
 protected:
-	
+	virtual void BeginPlay() override;
 
 public:
 	virtual void Tick(float DeltaSeconds) override;
