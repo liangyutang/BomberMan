@@ -19,7 +19,31 @@ protected:
 	UPROPERTY(meta=(BindWidget))
 	class UTextBlock* RemainTimer;
 
-public:
-	void SetRemainTimer(FText TimerText);
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* WinTitle;
 
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* P1_Text;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* P2_Text;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* RestartButton;
+
+
+protected:
+	virtual bool Initialize() override;
+
+	UFUNCTION()
+	void OnRestartButtonClicked();
+
+public:
+	void SetRemainTimer(const FText& TimerText);
+
+	void SetP1Text(int Score);
+
+	void SetP2Text(int Score);
+
+	void SetWinTitle(const FText& WinPlayerText);
 };
