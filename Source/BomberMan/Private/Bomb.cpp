@@ -90,6 +90,10 @@ FVector ABomb::LineTraceDirection(const FVector& Direction)
 			{
 				BreakableBlock->OnDestroy();
 			}
+			else if (ABomberCharacter* TempBomberCharacter = Cast<ABomberCharacter>(Hit.GetActor()))
+			{
+				TempBomberCharacter->OnDeath();
+			}
 		}
 	}
 

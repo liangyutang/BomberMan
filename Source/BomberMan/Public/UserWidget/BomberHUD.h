@@ -31,7 +31,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	class UButton* RestartButton;
 
-
+	UPROPERTY(meta = (BindWidget))
+	class UCanvasPanel* MenuBackground;
+	
 protected:
 	virtual bool Initialize() override;
 
@@ -46,4 +48,6 @@ public:
 	void SetP2Text(int Score);
 
 	void SetWinTitle(const FText& WinPlayerText);
+
+	void SetMenuBackgroundVisible();
 };

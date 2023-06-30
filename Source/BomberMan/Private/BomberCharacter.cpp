@@ -5,6 +5,7 @@
 
 #include "Bomb.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABomberCharacter::ABomberCharacter()
@@ -24,6 +25,9 @@ void ABomberCharacter::BeginPlay()
 	BombLimit = InitialBombLimit;
 	BlastRange = InitialBlastRange;
 	GetCharacterMovement()->MaxWalkSpeed = InitialMaxWalkSpeed;
+
+	//获取游戏模式
+	BomberManGameMode =Cast<ABomberManGameModeBase>( UGameplayStatics::GetGameMode(this));
 	
 }
 
@@ -96,6 +100,15 @@ void ABomberCharacter::ResetInitial(EPowerupType PowerupType)
 			bHasRemote = false;
 			break;
 		default: ;
+	}
+}
+
+void ABomberCharacter::OnDeath()
+{
+	if (!bHasDead)
+	{
+		bHasDead = true;
+		BomberManGameMode->OnPlayerDeath(GetController());
 	}
 }
 

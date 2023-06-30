@@ -40,6 +40,12 @@ protected:
 
 	bool bHasRemote = false;
 
+	//获取游戏模式
+	UPROPERTY()
+	class ABomberManGameModeBase* BomberManGameMode;
+
+	//只死亡一次
+	bool bHasDead = false;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -73,6 +79,8 @@ public:
 	FORCEINLINE bool GetBHasRemote() const { return bHasRemote; }
 
 	void ResetInitial(EPowerupType PowerupType);
+
+	void OnDeath();
 private:
 
 

@@ -5,6 +5,7 @@
 
 #include "BomberCharacter.h"
 #include "BomberPlayerController.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetStringLibrary.h"
 #include "UserWidget/BomberHUD.h"
 
@@ -35,4 +36,24 @@ void ABomberManGameModeBase::Tick(float DeltaSeconds)
 	TimeText=FText::FromString(UKismetStringLibrary::TimeSecondsToString(TotalTime));
 	BomberHUD->SetRemainTimer(TimeText);
 	
+}
+
+void ABomberManGameModeBase::OnPlayerDeath(AController* Controller)
+{
+	ABomberPlayerController* BomberPlayerController= Cast<ABomberPlayerController>(Controller);
+
+	const FText Player1WinText = FText::FromString("Player 1 Win!");
+	const FText Player2WinText = FText::FromString("Player 2 Win!");
+
+	if (UGameplayStatics::GetPlayerControllerID(BomberPlayerController)==0)
+	{
+		BomberHUD->SetWinTitle(Player2WinText);
+
+	}
+	else if (UGameplayStatics::GetPlayerControllerID(BomberPlayerController) == 1)
+	{
+		BomberHUD->SetWinTitle(Player1WinText);
+	}
+
+	BomberHUD->SetMenuBackgroundVisible();
 }

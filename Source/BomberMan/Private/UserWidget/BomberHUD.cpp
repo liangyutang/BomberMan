@@ -4,6 +4,7 @@
 #include "UserWidget/BomberHUD.h"
 
 #include "Components/Button.h"
+#include "Components/CanvasPanel.h"
 #include "Components/TextBlock.h"
 
 bool UBomberHUD::Initialize()
@@ -42,4 +43,9 @@ void UBomberHUD::SetP2Text(const int Score)
 void UBomberHUD::SetWinTitle(const FText& WinPlayerText)
 {
 	WinTitle->SetText(WinPlayerText);
+}
+
+void UBomberHUD::SetMenuBackgroundVisible()
+{
+	MenuBackground->SetVisibility(ESlateVisibility::Visible);
 }

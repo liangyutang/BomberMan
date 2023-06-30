@@ -47,4 +47,6 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	FORCEINLINE float GetDropChance() const { return DropChance; }
+
+	void OnPlayerDeath(AController* Controller);
 };
