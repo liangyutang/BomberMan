@@ -41,12 +41,15 @@ protected:
 	class ABomberCharacter* BomberCharacter;
 
 	FTimerHandle TimerHandle_ResetPlayer;
+
+	FTimerHandle TimerHandle_Destroy;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void ResetPlayer();
 
+	void DelayDestroy();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

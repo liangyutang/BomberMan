@@ -80,11 +80,22 @@ void ABomberCharacter::SpawnBomb()
 	}
 }
 
-void ABomberCharacter::ResetInitial()
+void ABomberCharacter::ResetInitial(EPowerupType PowerupType)
 {
-	BombLimit = InitialBombLimit;
-	BlastRange = InitialBlastRange;
-	GetCharacterMovement()->MaxWalkSpeed = InitialMaxWalkSpeed;
-	bHasRemote = false;
+	switch (PowerupType) {
+		case EPowerupType::SpeedBoost:
+			GetCharacterMovement()->MaxWalkSpeed = InitialMaxWalkSpeed;
+			break;
+		case EPowerupType::MoreBombs:
+			BombLimit = InitialBombLimit;
+			break;
+		case EPowerupType::LongerBlast:
+			BlastRange = InitialBlastRange;
+			break;
+		case EPowerupType::RemoteBomb:
+			bHasRemote = false;
+			break;
+		default: ;
+	}
 }
 

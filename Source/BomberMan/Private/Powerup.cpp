@@ -34,8 +34,18 @@ void APowerup::BeginPlay()
 
 void APowerup::ResetPlayer()
 {
-	BomberCharacter->ResetInitial();
+	BomberCharacter->ResetInitial(PowerupType);
 	BomberCharacter = nullptr;
+	Destroy();
+}
+
+void APowerup::DelayDestroy()
+{
+	this->SetActorHiddenInGame(true);
+
+	BoxCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	GetWorldTimerManager().SetTimer(TimerHandle_Destroy, this, &APowerup::ResetPlayer, 6.0f, false);
 }
 
 // Called every frame
@@ -69,10 +79,7 @@ void APowerup::NotifyActorBeginOverlap(AActor* OtherActor)
 			break;
 		default: ;
 		}
-
-		GetWorldTimerManager().SetTimer(TimerHandle_ResetPlayer, this, &APowerup::ResetPlayer, 6.0f, false);
-
-		Destroy();
+		DelayDestroy();
 	}
 	
 }

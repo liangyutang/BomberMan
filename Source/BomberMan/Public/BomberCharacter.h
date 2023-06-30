@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BomberMan/BomberManGameModeBase.h"
 #include "GameFramework/Character.h"
-
 #include "BomberCharacter.generated.h"
 
 UCLASS()
@@ -72,7 +72,7 @@ public:
 
 	FORCEINLINE bool GetBHasRemote() const { return bHasRemote; }
 
-	void ResetInitial();
+	void ResetInitial(EPowerupType PowerupType);
 private:
 
 
