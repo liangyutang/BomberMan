@@ -77,6 +77,7 @@ void ABomberManGameModeBase::UpdateScore()
 void ABomberManGameModeBase::OnGameEnd()
 {
 	UGameplayStatics::SetGamePaused(this, true);
+	UGameplayStatics::GetPlayerController(this, 0)->bShowMouseCursor = true;
 }
 
 void ABomberManGameModeBase::Tick(float DeltaSeconds)
@@ -111,4 +112,12 @@ void ABomberManGameModeBase::OnPlayerDeath(AController* Controller)
 	}
 	UpdateScore();
 	BomberHUD->SetMenuBackgroundVisible();
+}
+
+void ABomberManGameModeBase::Restart()
+{
+	//Ïú»ÙÍæ¼Ò1
+	UGameplayStatics::RemovePlayer(UGameplayStatics::GetPlayerController(this, 1),Destroy());
+
+	UGameplayStatics::OpenLevel(this, "Level01");
 }

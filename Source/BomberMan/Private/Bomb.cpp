@@ -7,7 +7,9 @@
 #include "BomberCharacter.h"
 #include "BreakableBlock.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Sound/SoundCue.h"
 
 class ABreakableBlock;
 // Sets default values
@@ -57,6 +59,8 @@ void ABomb::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* Other
 
 void ABomb::Detonate()
 {
+	UGameplayStatics::PlaySoundAtLocation(this, ExplosionSound, GetActorLocation());
+
 	SpawnBlast(FVector::RightVector);
 	SpawnBlast(FVector::ForwardVector);
 

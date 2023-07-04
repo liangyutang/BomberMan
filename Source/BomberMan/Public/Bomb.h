@@ -40,6 +40,9 @@ protected:
 	UPROPERTY(EditAnywhere,Category="Power")
 	class ABomberCharacter* BomberCharacter;
 
+	UPROPERTY(EditAnywhere,Category="Explosion")
+	class USoundCue* ExplosionSound;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -62,6 +65,9 @@ public:
 
 	void SetBlastRange(float TempBlastRange) { this->BlastRange = TempBlastRange; }
 
+	/**
+	 * @brief 爆炸时所作的操作
+	 */
 	void Detonate();
 	
 };

@@ -3,9 +3,11 @@
 
 #include "UserWidget/BomberHUD.h"
 
+#include "BomberMan/BomberManGameModeBase.h"
 #include "Components/Button.h"
 #include "Components/CanvasPanel.h"
 #include "Components/TextBlock.h"
+#include "Kismet/GameplayStatics.h"
 
 bool UBomberHUD::Initialize()
 {
@@ -22,7 +24,7 @@ bool UBomberHUD::Initialize()
 
 void UBomberHUD::OnRestartButtonClicked()
 {
-
+	Cast<ABomberManGameModeBase>(UGameplayStatics::GetGameMode(this))->Restart();
 }
 
 void UBomberHUD::SetRemainTimer(const FText& TimerText)

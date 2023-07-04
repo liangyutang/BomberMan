@@ -67,4 +67,6 @@ public:
 	FORCEINLINE float GetDropChance() const { return DropChance; }
 
 	void OnPlayerDeath(AController* Controller);
+
+	void Restart();
 };
