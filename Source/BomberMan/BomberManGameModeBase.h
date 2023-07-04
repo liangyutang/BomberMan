@@ -57,6 +57,10 @@ protected:
 
 	void IncrementP2Victories();
 
+	void UpdateScore();
+
+	void OnGameEnd();
+
 public:
 	virtual void Tick(float DeltaSeconds) override;
 

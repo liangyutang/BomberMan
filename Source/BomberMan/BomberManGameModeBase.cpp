@@ -45,10 +45,10 @@ void ABomberManGameModeBase::IncrementP1Victories()
 	}
 
 	BomberSaveInstance->IncreaseP1Victories();
-
 	UGameplayStatics::SaveGameToSlot(BomberSaveInstance, SaveSlotName, UserIndex);
 }
 
+//P2加分
 void ABomberManGameModeBase::IncrementP2Victories()
 {
 	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, UserIndex))
@@ -61,16 +61,28 @@ void ABomberManGameModeBase::IncrementP2Victories()
 		//没有找到存储文件，则创建
 		BomberSaveInstance = Cast<UBomberSaveGame>(UGameplayStatics::CreateSaveGameObject(UBomberSaveGame::StaticClass()));
 	}
-
 	BomberSaveInstance->IncreaseP2Victories();
 
 	UGameplayStatics::SaveGameToSlot(BomberSaveInstance, SaveSlotName, UserIndex);
 
 }
 
+void ABomberManGameModeBase::UpdateScore()
+{
+	OnGameEnd();
+	BomberHUD->SetP1Text(BomberSaveInstance->GetP1Victories());
+	BomberHUD->SetP2Text(BomberSaveInstance->GetP2Victories());
+}
+
+void ABomberManGameModeBase::OnGameEnd()
+{
+	UGameplayStatics::SetGamePaused(this, true);
+}
+
 void ABomberManGameModeBase::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+
 
 	//倒计时
 	TotalTime -= DeltaSeconds;
@@ -89,12 +101,14 @@ void ABomberManGameModeBase::OnPlayerDeath(AController* Controller)
 	if (UGameplayStatics::GetPlayerControllerID(BomberPlayerController)==0)
 	{
 		BomberHUD->SetWinTitle(Player2WinText);
+		IncrementP2Victories();
 
 	}
 	else if (UGameplayStatics::GetPlayerControllerID(BomberPlayerController) == 1)
 	{
 		BomberHUD->SetWinTitle(Player1WinText);
+		IncrementP1Victories();
 	}
-
+	UpdateScore();
 	BomberHUD->SetMenuBackgroundVisible();
 }

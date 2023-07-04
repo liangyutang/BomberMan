@@ -15,11 +15,14 @@ class BOMBERMAN_API UBomberSaveGame : public USaveGame
 	GENERATED_BODY()
 
 protected:
+	UPROPERTY()
 	int P1_Victories;
 
+	UPROPERTY()
 	int P2_Victories;
 
 protected:
+
 	UBomberSaveGame();
 
 public:
@@ -27,7 +30,7 @@ public:
 
 	FORCEINLINE int GetP2Victories() const { return P1_Victories; }
 
-	void IncreaseP1Victories() { P1_Victories++; }
+	void IncreaseP1Victories() { P1_Victories++;}
 
-	void IncreaseP2Victories() { P2_Victories++; }
+	void IncreaseP2Victories() {P2_Victories++;}
 };
